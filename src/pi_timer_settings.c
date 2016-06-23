@@ -39,9 +39,9 @@ unsigned short server_port = 9080;
 bool service_running = false;
 const char* defualt_uptime = "9-18";
 unsigned int sleep_minutes = 55;
-
 unsigned int duration_minutes = 0;
 struct timespec start_time;
+bool use_random = false;
 
 bool is_operation_enabled() {
     time_t t = time(NULL);
@@ -131,12 +131,25 @@ void set_timer_start(unsigned int minutes) {
 }
 
 unsigned int random_time(){
-    srand((unsigned int) time(NULL));
-    unsigned int i = (unsigned int) (rand() % 60);
-    return i + sleep_minutes;
+    if (get_use_random()){
+        srand((unsigned int) time(NULL));
+        unsigned int i = (unsigned int) (rand() % 60);
+        return i + sleep_minutes;
+    }
+
+    return sleep_minutes;
 }
 
 const char *get_up_time_string() {
     return defualt_uptime;
 }
+
+bool get_use_random(){
+    return use_random;
+}
+
+void set_use_random(bool value){
+    use_random = value;
+}
+
 

@@ -72,4 +72,8 @@ int get_minutes_remaining();
 
 const char *get_up_time_string();
 
+bool get_use_random();
+
+void set_use_random(bool value);
+
 #endif //PI_TIMER_SETTINGS_H

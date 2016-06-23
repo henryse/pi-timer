@@ -51,6 +51,7 @@ void usage(const char *program) {
     fprintf(stdout, "     daemon     run as daemon, default: %s\n", get_run_as_daemon() ? "true" : "false");
     fprintf(stdout, "     port       port to listen to, default: %d\n", (int) get_server_port());
     fprintf(stdout, "     UpTime     up time, default: %s\n", get_up_time_string());
+    fprintf(stdout, "     random     use random offset to turn on pin, default: %s\n", get_use_random() ? "true" : "false");
     fprintf(stdout, "     help       get this help message\n");
 }
 
@@ -105,6 +106,12 @@ bool parse_arguments(int argc, char *argv[]) {
                 set_run_as_daemon(strcmp(optarg, "true") == 0);
                 fprintf(stdout, "\nRun as daemon %s\n", get_run_as_daemon() ? "true" : "false");
                 break;
+
+            case 'm':
+                set_use_random(strcmp(optarg, "true") == 0);
+                fprintf(stdout, "\nUse random Time %s\n", get_use_random() ? "true" : "false");
+                break;
+
             case 'u':
                 fprintf(stdout, "\nSet up Time %s\n", optarg);
                 break;
