@@ -265,6 +265,7 @@ int main(int argc, const char *argv[]) {
             }
             else
             {
+                INFO_LOG("Sleeping for 60 minutes");
                 pause_minutes(60);
             }
         }
