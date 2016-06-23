@@ -15,10 +15,10 @@ The tool supports a simple diagnostic port that can viewed in a browser.
 
 YOu will need to install the following two items on your Raspberry PI to build this application:
 
-* [CMake 3.5+](https://cmake.org)
+* [CMake 3.0+](https://cmake.org)
 * [WiringPI](http://wiringpi.com)
 
-### [CMake 3.5+](https://cmake.org)
+### [CMake 3.0+](https://cmake.org)
 
 To [install CMake](https://cmake.org/install/) on the Raspberry PI do the following:
 
