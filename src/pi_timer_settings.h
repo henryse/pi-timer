@@ -46,7 +46,11 @@ void set_pin(unsigned char value);
 
 bool get_run_as_daemon();
 
+bool is_operation_enabled();
+
 void set_run_as_daemon(bool value);
+
+unsigned int random_time();
 
 pid_t get_process_id();
 
@@ -65,5 +69,7 @@ void set_service_running(bool value);
 void set_timer_start(unsigned int minutes);
 
 int get_minutes_remaining();
+
+const char *get_up_time_string();
 
 #endif //PI_TIMER_SETTINGS_H

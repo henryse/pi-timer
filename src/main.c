@@ -39,6 +39,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
 
+
 void usage(const char *program) {
     fprintf(stdout, "Version: %s\n", get_pi_timer_version());
     fprintf(stdout, "Usage:     %s --run=RUN_MINUTES --sleep=SLEEP_MINUTES \n", program);
@@ -49,6 +50,7 @@ void usage(const char *program) {
     fprintf(stdout, "     gpio       gpio pin to signal fan, default: %u\n", (unsigned int) get_pin());
     fprintf(stdout, "     daemon     run as daemon, default: %s\n", get_run_as_daemon() ? "true" : "false");
     fprintf(stdout, "     port       port to listen to, default: %d\n", (int) get_server_port());
+    fprintf(stdout, "     UpTime     up time, default: %s\n", get_up_time_string());
     fprintf(stdout, "     help       get this help message\n");
 }
 
@@ -56,12 +58,15 @@ bool parse_arguments(int argc, char *argv[]) {
 
     static struct option long_options[] =
             {
-                    {"run",    optional_argument, 0, 'r'},
-                    {"sleep",  optional_argument, 0, 's'},
-                    {"gpio",   optional_argument, 0, 'g'},
-                    {"daemon", optional_argument, 0, 'd'},
-                    {"port",   optional_argument, 0, 'p'},
-                    {"help",   optional_argument, 0, '?'},
+                    {"run",       optional_argument, 0, 'r'},
+                    {"sleep",     optional_argument, 0, 's'},
+                    {"gpio",      optional_argument, 0, 'g'},
+                    {"daemon",    optional_argument, 0, 'd'},
+                    {"port",      optional_argument, 0, 'p'},
+                    {"random",    optional_argument, 0, 'm'},
+                    {"operation", optional_argument, 0, 'o'},
+                    {"uptime",    optional_argument, 0, 'u'},
+                    {"help",      optional_argument, 0, '?'},
                     {0, 0,                        0, 0}
             };
 
@@ -69,7 +74,7 @@ bool parse_arguments(int argc, char *argv[]) {
     int c = 0;
 
     do {
-        c = getopt_long(argc, argv, "?r:s:p:d:g:", long_options, &option_index);
+        c = getopt_long(argc, argv, "?r:s:p:d:g:m:o:u:", long_options, &option_index);
 
         switch (c) {
             case -1:
@@ -99,6 +104,9 @@ bool parse_arguments(int argc, char *argv[]) {
             case 'd':
                 set_run_as_daemon(strcmp(optarg, "true") == 0);
                 fprintf(stdout, "\nRun as daemon %s\n", get_run_as_daemon() ? "true" : "false");
+                break;
+            case 'u':
+                fprintf(stdout, "\nSet up Time %s\n", optarg);
                 break;
 
             case '?':
@@ -220,9 +228,9 @@ void fork_process() {
 
 int main(int argc, const char *argv[]) {
 
-#ifdef BCMHOST
-    printf("Hello From BCMHOST\n\r");
-#endif
+//#ifdef BCMHOST
+//    printf("Hello From BCMHOST\n\r");
+//#endif
 
     if (parse_arguments(argc, (char **) argv)) {
 
@@ -238,12 +246,20 @@ int main(int argc, const char *argv[]) {
 
         pi_timer_stop();
 
-        while (true) {
-            pi_timer_start();
-            pause_minutes(get_run_minutes());
 
-            pi_timer_stop();
-            pause_minutes(get_sleep_minutes());
+        while (true) {
+            if (is_operation_enabled())
+            {
+                pi_timer_start();
+                pause_minutes(get_run_minutes());
+
+                pi_timer_stop();
+                pause_minutes(get_sleep_minutes());
+            }
+            else
+            {
+                pause_minutes(60);
+            }
         }
     }
 

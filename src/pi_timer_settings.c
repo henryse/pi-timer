@@ -29,17 +29,31 @@
 #include "pi_timer_settings.h"
 #include "version_config.h"
 #include "pi_utils.h"
+#include "stdlib.h"
 
 unsigned int run_minutes = 5;
-unsigned int sleep_minutes = 55;
 unsigned char pin = 4;
 bool run_as_daemon = false;
 pid_t process_id = 0;
 unsigned short server_port = 9080;
 bool service_running = false;
+const char* defualt_uptime = "9-18";
+unsigned int sleep_minutes = 55;
 
 unsigned int duration_minutes = 0;
 struct timespec start_time;
+
+bool is_operation_enabled() {
+    time_t t = time(NULL);
+    struct tm *local = localtime(&t); // getting local time
+
+    int hour = local->tm_hour; // getting the current hour
+    if (hour >= 9 && hour < 18) { // if time is between 9:00am and 5:00pm return true
+        return true;
+    }
+    else
+        return false; // if not return false
+}
 
 const char *get_pi_timer_version() {
     return PI_TIMER_VERSION;
@@ -54,7 +68,7 @@ void set_run_minutes(unsigned int value) {
 }
 
 unsigned int get_sleep_minutes() {
-    return sleep_minutes;
+    return random_time();
 }
 
 void set_sleep_minutes(unsigned int value) {
@@ -114,5 +128,15 @@ int get_minutes_remaining() {
 void set_timer_start(unsigned int minutes) {
     duration_minutes = minutes;
     start_time = timer_start();
+}
+
+unsigned int random_time(){
+    srand((unsigned int) time(NULL));
+    unsigned int i = (unsigned int) (rand() % 60);
+    return i + sleep_minutes;
+}
+
+const char *get_up_time_string() {
+    return defualt_uptime;
 }
 
