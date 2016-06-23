@@ -43,7 +43,10 @@ unsigned int duration_minutes = 0;
 struct timespec start_time;
 bool use_random = false;
 
+// TODO: add getters and setters for up time.
+
 bool is_operation_enabled() {
+    // TODO: find a way to block out up time:
     time_t t = time(NULL);
     struct tm *local = localtime(&t); // getting local time
 
@@ -51,8 +54,8 @@ bool is_operation_enabled() {
     if (hour >= 9 && hour < 18) { // if time is between 9:00am and 5:00pm return true
         return true;
     }
-    else
-        return false; // if not return false
+
+    return false; // if not return false
 }
 
 const char *get_pi_timer_version() {
@@ -68,6 +71,10 @@ void set_run_minutes(unsigned int value) {
 }
 
 unsigned int get_sleep_minutes() {
+    return sleep_minutes;
+}
+
+unsigned int get_random_sleep_minutes() {
     return random_time();
 }
 
@@ -131,13 +138,9 @@ void set_timer_start(unsigned int minutes) {
 }
 
 unsigned int random_time(){
-    if (get_use_random()){
-        srand((unsigned int) time(NULL));
-        unsigned int i = (unsigned int) (rand() % 60);
-        return i + sleep_minutes;
-    }
-
-    return sleep_minutes;
+    srand((unsigned int) time(NULL));
+    unsigned int i = (unsigned int) (rand() % 60);
+    return i + sleep_minutes;
 }
 
 const char *get_up_time_string() {

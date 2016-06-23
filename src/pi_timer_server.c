@@ -323,9 +323,10 @@ void http_output_pins(pi_string_t *response_body) {
 }
 
 void http_output_config(pi_string_t *response_body) {
+    // TODO: Update to show all configuration settings:
     pi_string_sprintf(response_body, "<P><B>Configuration Settings:</B><P/>\r\n");
     pi_string_sprintf(response_body, "<ul><li>Run Minutes: %u</li>", get_run_minutes());
-    pi_string_sprintf(response_body, "<li>Sleep Minutes: %u</li>", get_sleep_minutes());
+    pi_string_sprintf(response_body, "<li>Sleep Minutes: %u</li>", get_random_sleep_minutes());
     pi_string_sprintf(response_body, "<li>GPIO Pin: %u</li>", (unsigned int) get_pin());
     pi_string_sprintf(response_body, "<li>daemon: %s</li>", get_run_as_daemon() ? "true" : "false");
     pi_string_sprintf(response_body, "<li>Port: %d</li>", (int) get_server_port());

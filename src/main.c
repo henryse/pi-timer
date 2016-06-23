@@ -46,7 +46,7 @@ void usage(const char *program) {
     fprintf(stdout, "Example:   %s --run=5 --sleep=50 \n\n", program);
     fprintf(stdout, "Simple Raspberry Timer for our compost bin.\n\n");
     fprintf(stdout, "     run        number of minutes to run, default: %u\n", get_run_minutes());
-    fprintf(stdout, "     sleep      number of minutes to sleep, default: %u\n", get_sleep_minutes());
+    fprintf(stdout, "     sleep      number of minutes to sleep, default: %u\n", get_random_sleep_minutes());
     fprintf(stdout, "     gpio       gpio pin to signal fan, default: %u\n", (unsigned int) get_pin());
     fprintf(stdout, "     daemon     run as daemon, default: %s\n", get_run_as_daemon() ? "true" : "false");
     fprintf(stdout, "     port       port to listen to, default: %d\n", (int) get_server_port());
@@ -89,7 +89,7 @@ bool parse_arguments(int argc, char *argv[]) {
 
             case 's':
                 set_sleep_minutes((unsigned int) max(atol(optarg), 1));
-                fprintf(stdout, "\nSleeping for %u minutes\n", get_sleep_minutes());
+                fprintf(stdout, "\nSleeping for %u minutes\n", get_random_sleep_minutes());
                 break;
 
             case 'g':
@@ -113,6 +113,7 @@ bool parse_arguments(int argc, char *argv[]) {
                 break;
 
             case 'u':
+                // TODO: parse time for time range:
                 fprintf(stdout, "\nSet up Time %s\n", optarg);
                 break;
 
@@ -185,6 +186,7 @@ void fork_process() {
 
             ERROR_LOG("Forking the process failed.");
             // Return failure in exit status
+            //
             exit(1);
         }
 
@@ -235,6 +237,7 @@ void fork_process() {
 
 int main(int argc, const char *argv[]) {
 
+    // TODO: test to see if this will detect Raspberry pi need to compile to Pi to tset it.
 //#ifdef BCMHOST
 //    printf("Hello From BCMHOST\n\r");
 //#endif
@@ -261,12 +264,17 @@ int main(int argc, const char *argv[]) {
                 pause_minutes(get_run_minutes());
 
                 pi_timer_stop();
-                pause_minutes(get_sleep_minutes());
+                if (get_use_random()) {
+                    pause_minutes(get_random_sleep_minutes());
+                }
+                else{
+                    pause_minutes(get_sleep_minutes());
+                }
             }
             else
             {
                 INFO_LOG("Sleeping for 60 minutes");
-                pause_minutes(60);
+                pause_minutes(get_sleep_minutes());
             }
         }
     }

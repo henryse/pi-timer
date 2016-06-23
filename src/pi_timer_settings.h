@@ -38,6 +38,8 @@ void set_run_minutes(unsigned int value);
 
 unsigned int get_sleep_minutes();
 
+unsigned int get_random_sleep_minutes();
+
 void set_sleep_minutes(unsigned int value);
 
 unsigned char get_pin();
