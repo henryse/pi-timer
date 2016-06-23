@@ -24,7 +24,7 @@
 #
 #**********************************************************************
 
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.0)
 project(pi-timer)
 
 set(PI_TIMER_VERSION "pi-timer-version-v1.0.0")
