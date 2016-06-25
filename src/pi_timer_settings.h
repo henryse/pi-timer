@@ -46,6 +46,8 @@ unsigned char get_pin();
 
 void set_pin(unsigned char value);
 
+void set_uptime_string(char *value);
+
 bool get_run_as_daemon();
 
 bool is_operation_enabled();
@@ -77,5 +79,8 @@ const char *get_up_time_string();
 bool get_use_random();
 
 void set_use_random(bool value);
+
+void check_hours(unsigned int start, unsigned int end);
+
 
 #endif //PI_TIMER_SETTINGS_H

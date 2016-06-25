@@ -30,6 +30,8 @@
 #include "version_config.h"
 #include "pi_utils.h"
 #include "stdlib.h"
+#include "string.h"
+#include "pi_string.h"
 
 unsigned int run_minutes = 5;
 unsigned char pin = 4;
@@ -38,25 +40,51 @@ pid_t process_id = 0;
 unsigned short server_port = 9080;
 bool service_running = false;
 const char* defualt_uptime = "9-18";
+pi_string_ptr current_uptime = NULL;
 unsigned int sleep_minutes = 55;
 unsigned int duration_minutes = 0;
 struct timespec start_time;
 bool use_random = false;
+unsigned int start_hour = 9;
+unsigned int end_hour = 18;
 
-// TODO: add getters and setters for up time.
 
 bool is_operation_enabled() {
     // TODO: find a way to block out up time:
     time_t t = time(NULL);
     struct tm *local = localtime(&t); // getting local time
-
     int hour = local->tm_hour; // getting the current hour
-    if (hour >= 9 && hour < 18) { // if time is between 9:00am and 5:00pm return true
+
+    check_hours(start_hour, end_hour);
+    if (hour >= start_hour && hour < end_hour) { // if time is between 9:00am and 5:00pm return true
         return true;
     }
 
     return false; // if not return false
 }
+
+void set_uptime_string(char *value){
+    if (current_uptime == NULL){
+        current_uptime = pi_string_new(16);
+    }
+
+    pi_string_append_str(current_uptime, value);
+
+    start_hour = (unsigned int) atol(strtok(pi_string_c_string(current_uptime), "-"));
+    end_hour = (unsigned int) atol(strtok(NULL, "-"));
+}
+
+void check_hours(unsigned int start, unsigned int end){
+    if(start == 0)
+    {
+        start_hour = 9;
+    }
+    if(end == 0)
+    {
+        end_hour = 16;
+    }
+}
+
 
 const char *get_pi_timer_version() {
     return PI_TIMER_VERSION;
@@ -144,7 +172,11 @@ unsigned int random_time(){
 }
 
 const char *get_up_time_string() {
-    return defualt_uptime;
+    if(current_uptime == NULL){
+        return defualt_uptime;
+    }
+
+    return pi_string_c_string(current_uptime);
 }
 
 bool get_use_random(){

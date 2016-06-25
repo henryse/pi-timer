@@ -113,8 +113,8 @@ bool parse_arguments(int argc, char *argv[]) {
                 break;
 
             case 'u':
-                // TODO: parse time for time range:
-                fprintf(stdout, "\nSet up Time %s\n", optarg);
+                set_uptime_string(optarg);
+                fprintf(stdout, "\nSet up Time %s\n", get_up_time_string());
                 break;
 
             case '?':
