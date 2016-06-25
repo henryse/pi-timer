@@ -237,10 +237,9 @@ void fork_process() {
 
 int main(int argc, const char *argv[]) {
 
-    // TODO: test to see if this will detect Raspberry pi need to compile to Pi to tset it.
-//#ifdef BCMHOST
-//    printf("Hello From BCMHOST\n\r");
-//#endif
+#ifdef BCMHOST
+    printf("Hello From BCMHOST\n\r");
+#endif
 
     if (parse_arguments(argc, (char **) argv)) {
 

@@ -50,7 +50,6 @@ unsigned int end_hour = 18;
 
 
 bool is_operation_enabled() {
-    // TODO: find a way to block out up time:
     time_t t = time(NULL);
     struct tm *local = localtime(&t); // getting local time
     int hour = local->tm_hour; // getting the current hour

@@ -323,14 +323,22 @@ void http_output_pins(pi_string_t *response_body) {
 }
 
 void http_output_config(pi_string_t *response_body) {
-    // TODO: Update to show all configuration settings:
     pi_string_sprintf(response_body, "<P><B>Configuration Settings:</B><P/>\r\n");
     pi_string_sprintf(response_body, "<ul><li>Run Minutes: %u</li>", get_run_minutes());
-    pi_string_sprintf(response_body, "<li>Sleep Minutes: %u</li>", get_random_sleep_minutes());
     pi_string_sprintf(response_body, "<li>GPIO Pin: %u</li>", (unsigned int) get_pin());
-    pi_string_sprintf(response_body, "<li>daemon: %s</li>", get_run_as_daemon() ? "true" : "false");
+    pi_string_sprintf(response_body, "<li>Daemon: %s</li>", get_run_as_daemon() ? "true" : "false");
+    pi_string_sprintf(response_body, "<li>Random: %s</li>", get_use_random() ? "true" : "false");
     pi_string_sprintf(response_body, "<li>Port: %d</li>", (int) get_server_port());
     pi_string_sprintf(response_body, "<li>Time Remaining in Minutes: %d</li></ul>", get_minutes_remaining());
+
+    // Get the local time...
+    time_t t = time(NULL);
+    struct tm *local = localtime(&t); // getting local time
+
+    local->tm_hour +=  get_minutes_remaining() / 60;
+    local->tm_min +=  get_minutes_remaining() % 60;
+
+    pi_string_sprintf(response_body, "<li>Next trigger time: %d:%d:%d</li></ul>", local->tm_hour, local->tm_min, local->tm_sec);
 }
 
 void http_html_monitor_page(pi_string_t *response) {
