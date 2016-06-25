@@ -197,7 +197,7 @@ void fork_process() {
         // PARENT PROCESS. Need to kill it.
         //
         if (process_id > 0) {
-            ERROR_LOG("Process ID of child process %d", process_id);
+            INFO_LOG("Process ID of child process %d", process_id);
 
             // return success in exit status
             //
