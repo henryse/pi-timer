@@ -163,6 +163,10 @@ void pi_timer_process_setup() {
     signal(SIGABRT, signal_shutdown);
     signal(SIGFPE, signal_shutdown);
     signal(SIGILL, signal_shutdown);
+    signal(SIGKILL, signal_shutdown);
+    signal(SIGBUS, signal_shutdown);
+    signal(SIGSEGV, signal_shutdown);
+    signal(SIGTSTP, signal_shutdown);
     signal(SIGINT, signal_shutdown);
     signal(SIGSEGV, signal_shutdown);
     signal(SIGTERM, signal_shutdown);
