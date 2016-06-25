@@ -236,11 +236,6 @@ void fork_process() {
 }
 
 int main(int argc, const char *argv[]) {
-
-#ifdef BCMHOST
-    printf("Hello From BCMHOST\n\r");
-#endif
-
     if (parse_arguments(argc, (char **) argv)) {
 
         fork_process();
