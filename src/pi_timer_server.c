@@ -340,7 +340,7 @@ void http_output_config(pi_string_t *response_body) {
     local->tm_hour = total_minutes / 60;
     local->tm_min =  total_minutes % 60;
 
-    pi_string_sprintf(response_body, "<li>Next trigger time: %d:%d:%d</li></ul>", local->tm_hour, local->tm_min, local->tm_sec);
+    pi_string_sprintf(response_body, "<li>Next trigger time: %d:%d</li></ul>", local->tm_hour, local->tm_min);
 }
 
 void http_html_monitor_page(pi_string_t *response) {
