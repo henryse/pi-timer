@@ -29,17 +29,23 @@ project(pi-timer)
 
 set(PI_TIMER_VERSION "pi-timer-version-v1.0.0")
 
-include_directories("/opt/vc/include")
-
-include(CheckIncludeFiles)
-CHECK_INCLUDE_FILES(bcm_host.h HAVE_BCMHOST_H)
+if(EXISTS "/opt/vc/include/bcm_host.h")
+    MESSAGE("bcm_host.h found")
+    set(BCMHOST found)
+else()
+    MESSAGE("bcm_host.h not found")
+endif()
 
 # Set The correct compiler
 #
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(CMAKE_C_FLAGS "-std=gnu99")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    set(CMAKE_C_FLAGS "-std=gnu99 -lwiringPi -pthread -lrt")
+    if(DEFINED BCMHOST)
+        set(CMAKE_C_FLAGS "-std=gnu99 -lwiringPi -pthread -lrt")
+    else()
+        set(CMAKE_C_FLAGS "-std=gnu99 -pthread -lrt")
+    endif()
 endif ()
 
 # Versioning
