@@ -32,10 +32,10 @@ set(PI_TIMER_VERSION "pi-timer-version-v1.0.0")
 # Check to see if we are running on a Raspberry PI
 #
 if(EXISTS "/opt/vc/include/bcm_host.h")
-    MESSAGE("bcm_host.h found, we must be on a Raspberry PI")
+    MESSAGE("-- bcm_host.h found, we must be on a Raspberry PI")
     set(BCMHOST found)
 else()
-    MESSAGE("bcm_host.h not found we must NOT on in a Raspberry PI")
+    MESSAGE("-- bcm_host.h not found we must NOT on in a Raspberry PI")
 endif()
 
 # Set The correct compiler
