@@ -241,7 +241,7 @@ void fork_process() {
 }
 
 int main(int argc, const char *argv[]) {
-#ifdef PI_BCMHOST_EXISTS
+#ifdef HAVE_BCMHOST_H
     INFO_LOG("DUDE I'm a RPi!!!!!!!!!!!!!!!!!");
 #else
     INFO_LOG("NO RPi FOR YOU!!!!!!!!!!!!!!!!!");
@@ -286,5 +286,3 @@ int main(int argc, const char *argv[]) {
 
     return 0;
 }
-
-#pragma clang diagnostic pop

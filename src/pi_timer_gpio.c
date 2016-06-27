@@ -28,7 +28,7 @@
 #include "pi_timer_settings.h"
 #include "pi_utils.h"
 
-#ifndef BCMHOST
+#ifndef HAVE_BCMHOST_H
 #define ENABLE_PI_EMULATOR 1
 #endif
 
