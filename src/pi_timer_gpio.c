@@ -24,12 +24,19 @@
 //
 **********************************************************************/
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnusedImportStatement"
 #include "pi_timer_gpio.h"
 #include "pi_timer_settings.h"
 #include "pi_utils.h"
+#include "version_config.h"
 
-#ifndef HAVE_BCMHOST_H
+// Checking to see if we are on a Reapberry PI
+//
+#ifndef BCMHOST
+
 #define ENABLE_PI_EMULATOR 1
+
 #endif
 
 #ifndef ENABLE_PI_EMULATOR
@@ -91,3 +98,4 @@ gpio_signal set_gpio(unsigned char pin, gpio_signal value) {
 
     return result;
 }
+#pragma clang diagnostic pop
