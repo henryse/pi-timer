@@ -30,4 +30,6 @@
 #define PI_TIMER_VERSION "@PI_TIMER_VERSION@"
 #cmakedefine HAVE_BCMHOST_H 1
 
+#cmakedefine HAVE_MALLOC_H 1
+
 #endif // VERSION_CONFIG_H

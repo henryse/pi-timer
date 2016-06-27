@@ -31,6 +31,7 @@ set(PI_TIMER_VERSION "pi-timer-version-v1.0.0")
 
 include(CheckIncludeFiles)
 CHECK_INCLUDE_FILES("/opt/vc/include/bcm_host.h" HAVE_BCMHOST_H)
+CHECK_INCLUDE_FILES (malloc.h HAVE_MALLOC_H)
 
 # Set The correct compiler
 #

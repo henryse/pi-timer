@@ -247,6 +247,13 @@ int main(int argc, const char *argv[]) {
     INFO_LOG("NO RPi FOR YOU!!!!!!!!!!!!!!!!!");
 #endif
 
+
+#ifdef HAVE_MALLOC_H
+    INFO_LOG("DUDE I'm a malloc!!!!!!!!!!!!!!!!!");
+#else
+    INFO_LOG("NO malloc FOR YOU!!!!!!!!!!!!!!!!!");
+#endif
+
     if (parse_arguments(argc, (char **) argv)) {
 
         fork_process();
