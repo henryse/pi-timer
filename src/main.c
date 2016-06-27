@@ -35,6 +35,7 @@
 #include "pi_utils.h"
 #include "pi_timer_server.h"
 #include "pi_timer_gpio.h"
+#include "version_config.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wmissing-noreturn"
@@ -240,7 +241,7 @@ void fork_process() {
 }
 
 int main(int argc, const char *argv[]) {
-#ifdef BCMHOST
+#ifdef PI_BCMHOST_EXISTS
     INFO_LOG("DUDE I'm a RPi!!!!!!!!!!!!!!!!!");
 #else
     INFO_LOG("NO RPi FOR YOU!!!!!!!!!!!!!!!!!");

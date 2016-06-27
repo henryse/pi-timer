@@ -28,5 +28,5 @@
 #define VERSION_CONFIG_H
 
 #define PI_TIMER_VERSION "@PI_TIMER_VERSION@"
-
+#cmakedefine PI_BCMHOST_EXISTS 1
 #endif // VERSION_CONFIG_H

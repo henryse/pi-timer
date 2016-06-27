@@ -30,7 +30,7 @@ project(pi-timer)
 set(PI_TIMER_VERSION "pi-timer-version-v1.0.0")
 
 include(CheckIncludeFile)
-CHECK_INCLUDE_FILE(/opt/vc/include/bcm_host.h BCMHOST)
+CHECK_INCLUDE_FILE(/opt/vc/include/bcm_host.h PI_BCMHOST_EXISTS)
 
 # Set The correct compiler
 #
