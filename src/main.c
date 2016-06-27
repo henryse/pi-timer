@@ -240,8 +240,10 @@ void fork_process() {
 }
 
 int main(int argc, const char *argv[]) {
-#ifdef HAVE__OPT_VC_INCLUDE_BCM_HOST_H
+#ifdef BCMHOST
     INFO_LOG("DUDE I'm a RPi!!!!!!!!!!!!!!!!!");
+#else
+    INFO_LOG("NO RPi FOR YOU!!!!!!!!!!!!!!!!!");
 #endif
 
     if (parse_arguments(argc, (char **) argv)) {
