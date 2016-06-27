@@ -31,7 +31,7 @@
 #include "pi_utils.h"
 #include "version_config.h"
 
-// Checking to see if we are on a Reapberry PI
+// Checking to see if we are on a Raspberry PI
 //
 #ifndef BCMHOST
 
