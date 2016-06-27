@@ -28,8 +28,7 @@
 #include "pi_timer_settings.h"
 #include "pi_utils.h"
 
-#ifndef __arm__
-// This allows us to debug on the Mac and switch emulation off on the Raspberry PI.
+#ifndef HAVE__OPT_VC_INCLUDE_BCM_HOST_H
 #define ENABLE_PI_EMULATOR 1
 #endif
 
