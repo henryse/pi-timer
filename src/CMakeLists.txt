@@ -29,7 +29,7 @@ project(pi-timer)
 
 set(PI_TIMER_VERSION "pi-timer-version-v1.0.0")
 
-include_directories(/opt/vc/include)
+include_directories("/opt/vc/include")
 
 include(CheckIncludeFiles)
 CHECK_INCLUDE_FILES(bcm_host.h HAVE_BCMHOST_H)
