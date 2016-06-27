@@ -71,3 +71,5 @@ set(SOURCE_FILES
         pi_strmap.h)
 
 add_executable(pi-timer ${SOURCE_FILES})
+
+install(TARGETS pi-timer DESTINATION bin)
