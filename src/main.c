@@ -50,8 +50,8 @@ void usage(const char *program) {
     fprintf(stdout, "     gpio       gpio pin to signal fan, default: %u\n", (unsigned int) get_pin());
     fprintf(stdout, "     daemon     run as daemon, default: %s\n", get_run_as_daemon() ? "true" : "false");
     fprintf(stdout, "     port       port to listen to, default: %d\n", (int) get_server_port());
-    fprintf(stdout, "     UpTime     up time, default: %s\n", get_up_time_string());
-    fprintf(stdout, "     random     use random offset to turn on pin, default: %s\n", get_use_random() ? "true" : "false");
+    fprintf(stdout, "     up_time    up time specifies 24 hour range where pin can be on, default: %s\n", get_up_time_string());
+    fprintf(stdout, "     random     use random time offset to turn on pin, default: %s\n", get_use_random() ? "true" : "false");
     fprintf(stdout, "     help       get this help message\n");
 }
 
@@ -66,7 +66,7 @@ bool parse_arguments(int argc, char *argv[]) {
                     {"port",      optional_argument, 0, 'p'},
                     {"random",    optional_argument, 0, 'm'},
                     {"operation", optional_argument, 0, 'o'},
-                    {"uptime",    optional_argument, 0, 'u'},
+                    {"up_time",   optional_argument, 0, 'u'},
                     {"help",      optional_argument, 0, '?'},
                     {0, 0,                        0, 0}
             };
@@ -113,7 +113,7 @@ bool parse_arguments(int argc, char *argv[]) {
                 break;
 
             case 'u':
-                set_uptime_string(optarg);
+                set_up_time_string(optarg);
                 fprintf(stdout, "\nSet up Time %s\n", get_up_time_string());
                 break;
 

@@ -11,6 +11,15 @@ The purpose of this application is to allow you to turn a pin on the GPIO on and
 
 The tool supports a simple diagnostic port that can viewed in a browser.
 
+We use this tool to control a fan, but it could be used to control anything.   
+We used a the following:
+
+* [Power switch tail 2](https://www.adafruit.com/products/268) 
+* [Raspberry PI](https://www.adafruit.com/products/3055) Model 2 or 3
+* USB power connector and USB cable for power
+
+The model 3 is nice because it has WiFi, so you can use the debug http port to view the web page to monitor the timer's status.
+
 ## Setup
 
 YOu will need to install the following two items on your Raspberry PI to build this application:
@@ -19,6 +28,8 @@ YOu will need to install the following two items on your Raspberry PI to build t
 * [WiringPI](http://wiringpi.com)
 
 ### [CMake 3.0+](https://cmake.org)
+
+The project uses CMake 3.0.  The following is an example of how to install v3.5... but you really only need version 3.0.
 
 To [install CMake](https://cmake.org/install/) on the Raspberry PI do the following:
 
@@ -37,6 +48,9 @@ To [install CMake](https://cmake.org/install/) on the Raspberry PI do the follow
     sudo make install
 
 ```
+
+Sit back and wait.....  It will take a bit to build the whole thing.
+
 
 ### [WiringPI](http://wiringpi.com)
 
@@ -71,6 +85,8 @@ The following command line options are available:
 * gpio       gpio pin to signal fan, default: 4
 * daemon     run as daemon, default: false
 * port       port to listen to, default: 9080
+* random     use random time offset to turn on pin. default: false
+* up_time    up time specifies 24 hour range where pin can be on, default: 9-18
 * help       get help message
 
 ## Web Server Port

@@ -46,7 +46,7 @@ unsigned char get_pin();
 
 void set_pin(unsigned char value);
 
-void set_uptime_string(char *value);
+void set_up_time_string(char *value);
 
 bool get_run_as_daemon();
 

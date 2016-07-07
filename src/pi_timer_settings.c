@@ -39,8 +39,8 @@ bool run_as_daemon = false;
 pid_t process_id = 0;
 unsigned short server_port = 9080;
 bool service_running = false;
-const char* defualt_uptime = "9-18";
-pi_string_ptr current_uptime = NULL;
+const char* default_up_time = "9-18";
+pi_string_ptr current_up_time = NULL;
 unsigned int sleep_minutes = 55;
 unsigned int duration_minutes = 0;
 struct timespec start_time;
@@ -62,14 +62,14 @@ bool is_operation_enabled() {
     return false; // if not return false
 }
 
-void set_uptime_string(char *value){
-    if (current_uptime == NULL){
-        current_uptime = pi_string_new(16);
+void set_up_time_string(char *value){
+    if (current_up_time == NULL){
+        current_up_time = pi_string_new(16);
     }
 
-    pi_string_append_str(current_uptime, value);
+    pi_string_append_str(current_up_time, value);
 
-    start_hour = (unsigned int) atol(strtok(pi_string_c_string(current_uptime), "-"));
+    start_hour = (unsigned int) atol(strtok(pi_string_c_string(current_up_time), "-"));
     end_hour = (unsigned int) atol(strtok(NULL, "-"));
 }
 
@@ -171,11 +171,11 @@ unsigned int random_time(){
 }
 
 const char *get_up_time_string() {
-    if(current_uptime == NULL){
-        return defualt_uptime;
+    if(current_up_time == NULL){
+        return default_up_time;
     }
 
-    return pi_string_c_string(current_uptime);
+    return pi_string_c_string(current_up_time);
 }
 
 bool get_use_random(){
