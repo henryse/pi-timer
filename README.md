@@ -66,8 +66,10 @@ Once you have installed the above items, simply do the following:
     
     cd pi-timer
     
-    cmake .
+    sh configure.sh
     
+    cd build/release
+        
     make
     
     cd output
