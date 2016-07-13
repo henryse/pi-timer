@@ -63,18 +63,16 @@ Once you have installed the above items, simply do the following:
 ```
 
     git clone https://github.com/henryse/pi-timer.git
-    
+
     cd pi-timer
-    
-    sh configure.sh
-    
-    cd build/release
-        
-    make
-    
-    cd output
-    
+
+    make build
+
+    cd build/Debug/output
+
     ./pi-timer --help
+
+    make clean    
 
 ```
 
