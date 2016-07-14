@@ -37,9 +37,10 @@
 #include "pi_utils.h"
 
 pi_string_ptr pi_string_new(size_t size) {
-    pi_string_ptr pi_string = (pi_string_ptr ) malloc(sizeof(pi_string_t));
+    pi_string_ptr pi_string = (pi_string_ptr) malloc(sizeof(pi_string_t));
     if (pi_string) {
         memory_clear(pi_string, sizeof(pi_string_t));
+        size =  max(size, 4);
 
         pi_string->size = size;
         pi_string->c_string = (char *) malloc(size);
@@ -51,8 +52,10 @@ pi_string_ptr pi_string_new(size_t size) {
 }
 
 void pi_string_reset(pi_string_ptr pi_string) {
-    pi_string->position = 0;
-    memory_clear(pi_string->c_string, pi_string->size);
+    if (NULL != pi_string) {
+        pi_string->position = 0;
+        memory_clear(pi_string->c_string, pi_string->size);
+    }
 }
 
 void pi_string_delete(pi_string_ptr pi_string, bool free_string) {
@@ -69,6 +72,11 @@ void pi_string_delete(pi_string_ptr pi_string, bool free_string) {
 }
 
 bool string_buffer_resize(pi_string_ptr pi_string, const size_t new_size) {
+
+    if (NULL == pi_string) {
+        return false;
+    }
+
     char *old_c_string = pi_string->c_string;
 
     pi_string->c_string = (char *) realloc(pi_string->c_string, new_size);
@@ -87,7 +95,11 @@ int string_buffer_double_size(pi_string_ptr pi_string) {
 }
 
 void pi_string_append_char(pi_string_ptr pi_string, const char ch) {
-    if (pi_string->position == pi_string->size) {
+    if (NULL == pi_string) {
+        return;
+    }
+
+    if (pi_string->position == pi_string->size - 1) {
         string_buffer_double_size(pi_string);
     }
 
@@ -95,6 +107,11 @@ void pi_string_append_char(pi_string_ptr pi_string, const char ch) {
 }
 
 void pi_string_append_str_length(pi_string_ptr pi_string, const char *src, size_t length) {
+
+    if (NULL == pi_string || NULL == src) {
+        return;
+    }
+
     size_t chars_remaining;
     size_t chars_required;
     size_t new_size;
@@ -119,6 +136,11 @@ void pi_string_append_str(pi_string_ptr pi_string, const char *src) {
 }
 
 void pi_string_sprintf(pi_string_ptr pi_string, const char *template, ...) {
+
+    if (NULL == pi_string) {
+        return;
+    }
+
     char *str;
     va_list arg_list;
 
