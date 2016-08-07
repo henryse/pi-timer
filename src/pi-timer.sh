@@ -26,10 +26,8 @@ process_id=$(ps -e | grep pi-timer | awk '{print $1}')
 case "$1" in
   start)
     log_message "Starting pi-timer...";
-
-    logger -p info "pi-timer Start";
     if [ -z "${process_id}" ]; then
-        log_message "pi-timer startup: pi-timer --daemon=true --port=8080 --random=true;";
+        log_message "pi-timer starting up";
         sudo pi-timer --daemon=true --port=8080 --random=true;
     else
         log_message "pi-timer is already running: ${process_id}";
@@ -41,7 +39,7 @@ case "$1" in
     if [ -z "${process_id}" ]; then
         log_message "pi-timer is not running";
     else
-        log_message "sudo kill -9 ${process_id};";
+        log_message "Killing ${process_id}";
         sudo kill -9 ${process_id};
     fi
     ;;
