@@ -21,7 +21,7 @@ process_id=$(ps -e | grep pi-timer | awk '{print $1}')
 case "$1" in
   start)
     echo "Starting pi-timer...";
-    logger -p info "Starting pi-timer...";
+    logger -p info "pi-timer Start";
     if [ -z "${process_id}" ]; then
         logger -p info "pi-timer startup: pi-timer --daemon=true --port=8080 --random=true;";
         pi-timer --daemon=true --port=8080 --random=true;
