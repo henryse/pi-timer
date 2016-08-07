@@ -24,7 +24,8 @@ case "$1" in
     logger -p info "pi-timer Start";
     if [ -z "${process_id}" ]; then
         logger -p info "pi-timer startup: pi-timer --daemon=true --port=8080 --random=true;";
-        pi-timer --daemon=true --port=8080 --random=true;
+        echo "pi-timer startup: pi-timer --daemon=true --port=8080 --random=true;";
+        sudo pi-timer --daemon=true --port=8080 --random=true;
     else
         echo "pi-timer is running: ${process_id}";
         logger -p info "pi-timer is running: ${process_id}";
