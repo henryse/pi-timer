@@ -1,6 +1,11 @@
 #! /bin/sh
 # /etc/init.d/pi-timer
 # kFreeBSD do not accept scripts as interpreters, using #!/bin/sh and sourcing.
+function log_message{
+    echo $1;
+    logger -p info $1;
+}
+
 if [ true != "$INIT_D_SCRIPT_SOURCED" ] ; then
     set "$0" "$@"; INIT_D_SCRIPT_SOURCED=true . /lib/init/init-d-script
 fi
@@ -20,25 +25,23 @@ process_id=$(ps -e | grep pi-timer | awk '{print $1}')
 # The following part carries out specific functions depending on arguments.
 case "$1" in
   start)
-    echo "Starting pi-timer...";
+    log_message "Starting pi-timer...";
+
     logger -p info "pi-timer Start";
     if [ -z "${process_id}" ]; then
-        logger -p info "pi-timer startup: pi-timer --daemon=true --port=8080 --random=true;";
-        echo "pi-timer startup: pi-timer --daemon=true --port=8080 --random=true;";
+        log_message "pi-timer startup: pi-timer --daemon=true --port=8080 --random=true;";
         sudo pi-timer --daemon=true --port=8080 --random=true;
     else
-        echo "pi-timer is running: ${process_id}";
-        logger -p info "pi-timer is running: ${process_id}";
+        log_message "pi-timer is already running: ${process_id}";
     fi
     ;;
   stop)
-    echo "Stopping pi-timer...";
-    logger -p info "Stopping pi-timer...";
+    log_message "Stopping pi-timer...";
+
     if [ -z "${process_id}" ]; then
-        echo "pi-timer is not running";
-        logger -p info "pi-timer is not running";
+        log_message "pi-timer is not running";
     else
-        logger -p info "sudo kill -9 ${process_id};";
+        log_message "sudo kill -9 ${process_id};";
         sudo kill -9 ${process_id};
     fi
     ;;
