@@ -6,10 +6,6 @@ function log_message {
     logger -p info $1;
 }
 
-function execute {
-    su -s /bin/sh -c "$1" pi
-}
-
 if [ true != "$INIT_D_SCRIPT_SOURCED" ] ; then
     set "$0" "$@"; INIT_D_SCRIPT_SOURCED=true . /lib/init/init-d-script
 fi
@@ -32,7 +28,7 @@ case "$1" in
     log_message "Starting pi-timer...";
     if [ -z "${process_id}" ]; then
         log_message "pi-timer starting up";
-        execute "pi-timer --daemon=true --port=8080 --random=true";
+        pi-timer --daemon=true --port=8080 --random=true;
     else
         log_message "pi-timer is already running: ${process_id}";
     fi
@@ -44,7 +40,7 @@ case "$1" in
         log_message "pi-timer is not running";
     else
         log_message "Killing ${process_id}";
-        execute "kill ${process_id}";
+        kill ${process_id}
     fi
     ;;
   *)
