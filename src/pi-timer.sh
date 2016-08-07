@@ -1,7 +1,7 @@
-#! /bin/sh
+#!/usr/bin/env bash
 # /etc/init.d/pi-timer
-# kFreeBSD do not accept scripts as interpreters, using #!/bin/sh and sourcing.
-function log_message{
+
+function log_message {
     echo $1;
     logger -p info $1;
 }
