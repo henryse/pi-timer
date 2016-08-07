@@ -28,7 +28,7 @@ case "$1" in
     log_message "Starting pi-timer...";
     if [ -z "${process_id}" ]; then
         log_message "pi-timer starting up";
-        pi-timer --daemon=true --port=8080 --random=true;
+        /bin/bash -c "/usr/local/bin/pi-timer --daemon=true --port=8080 --random=true";
     else
         log_message "pi-timer is already running: ${process_id}";
     fi
