@@ -15,9 +15,6 @@ fi
 # Description:       Used to control the pi-timer
 ### END INIT INFO
 
-# The following part always gets executed.
-echo "Starting pi-timer"
-
 process_id=$(ps -e | grep pi-timer | awk '{print $1}')
 
 # The following part carries out specific functions depending on arguments.
