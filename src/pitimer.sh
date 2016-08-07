@@ -44,7 +44,7 @@ case "$1" in
         log_message "pi-timer is not running";
     else
         log_message "Killing ${process_id}";
-        execute "kill -9 ${process_id}";
+        execute "kill ${process_id}";
     fi
     ;;
   *)
