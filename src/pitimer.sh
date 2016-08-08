@@ -44,7 +44,7 @@ case "$1" in
     fi
     ;;
   *)
-    echo "Usage: /etc/init.d/pi-timer {start|stop}"
+    echo "Usage: /etc/init.d/pitimer {start|stop}"
     exit 1
     ;;
 esac
